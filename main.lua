@@ -22,9 +22,10 @@ function love.load()
     })
 
     gStateMachine = StateMachine:new{
-        start = function() return StartState:new() end
+        start = function() return StartState:new() end,
+        play = function() return PlayState:new() end
     }
-    print(gStateMachine)
+  
     gStateMachine:change('start')
 
     --Custom table
@@ -52,7 +53,11 @@ end
 
 
 function love.update(dt)
-    print('oi')
+    if love.keyboard.wasPressed('q') then
+        love.event.quit()
+    end
+
+    gStateMachine:update(dt)
 
     love.keyboard.keysPressed = {}
 end
@@ -62,6 +67,8 @@ function love.draw()
     push:start()
 
     displayFPS()
+
+    gStateMachine:render()
 
     push:finish()
 end

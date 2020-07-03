@@ -2,7 +2,7 @@ BaseState = {}
 
 function BaseState:new()
     local o = {}
-    setmetatable(self, o)
+    setmetatable(o, self)
     self.__index = self
     return o
 end
