@@ -14,12 +14,7 @@ function love.load()
         large = love.graphics.newFont('fonts/font.ttf', 32)
     }
 
-
-    push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
-        vsync=true,
-        fullscreen=false,
-        resizable=true
-    })
+    love.window.setMode(WINDOW_WIDTH, WINDOW_HEIGHT)
 
     gStateMachine = StateMachine:new{
         start = function() return StartState:new() end,
@@ -30,11 +25,6 @@ function love.load()
 
     --Custom table
     love.keyboard.keysPressed = {}
-end
-
-
-function love.resize(w, h)
-    push:resize(w, h)
 end
 
 
@@ -51,7 +41,6 @@ function love.keyboard.wasPressed(key)
 end
 
 
-
 function love.update(dt)
     if love.keyboard.wasPressed('q') then
         love.event.quit()
@@ -64,18 +53,15 @@ end
 
 
 function love.draw()
-    push:start()
-
-    displayFPS()
-
+    love.displayFPS()
     gStateMachine:render()
-
-    push:finish()
 end
 
-
-function displayFPS()
+--[[
+    Custom function
+]]
+function love.displayFPS()
     love.graphics.setFont(gFonts.small)
     love.graphics.setColor(0, 1, 0, 1)
-    love.graphics.print('FPS: '..tostring(love.timer.getFPS()), 5, 5)
+    love.graphics.print('FPS: '..tostring(love.timer.getFPS()), 20, 20, 0, 2, 2)
 end

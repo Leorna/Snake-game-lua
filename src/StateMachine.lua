@@ -23,7 +23,6 @@ function StateMachine:change(stateName, enterParams)
     assert(self.states[stateName])
     self.current:exit()
     self.current = self.states[stateName]()
-    print(self.current)
     self.current:enter(enterParams)
 end
 
