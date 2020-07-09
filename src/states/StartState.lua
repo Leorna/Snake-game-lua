@@ -16,16 +16,20 @@ function StartState:update(dt)
             flag = 2
         elseif flag == 2 then
             flag = 3
+        elseif flag == 3 then
+            flag = 4
         else
             flag = 1
         end
     elseif love.keyboard.wasPressed('up') then
         if flag == 1 then
-            flag = 3
+            flag = 4
         elseif flag == 2 then
             flag = 1
-        else
+        elseif flag == 3 then
             flag = 2
+        else
+            flag = 3
         end
     end
 
@@ -33,39 +37,68 @@ function StartState:update(dt)
         if flag == 1 then
             gStateMachine:change('play')
         elseif flag == 2 then
-            gStateMachine:change('')
+            gStateMachine:change('high-score')
+        elseif flag == 3 then
+            gStateMachine:change('choose-snake')
         else
-            gStateMachine:change('')
+            gStateMachine:change('tutorial')
         end
     end
+end
+
+
+local function renderStartLabel()
+    if flag == 1 then
+        love.graphics.setColor(0.1, 1, 0.1, 1)
+    end
+    love.graphics.printf("START", WINDOW_HEIGHT/2-40, 250, WINDOW_HEIGHT, 'center')
+end
+
+
+local function renderHighScoresLabel()
+    if flag == 2 then
+        love.graphics.setColor(0.1, 1, 0.1, 1)
+    end
+    love.graphics.printf("HIGH SCORES", WINDOW_HEIGHT/2-40, 300, WINDOW_HEIGHT, 'center')
+end
+
+
+local function renderSnakesLabel()
+    if flag == 3 then
+        love.graphics.setColor(0.1, 1, 0.1, 1)
+    end
+    love.graphics.printf('SNAKES', WINDOW_HEIGHT/2-40, 350, WINDOW_HEIGHT, 'center')
+end
+
+
+local function renderHowToPlayLabel()
+    if flag == 4 then
+        love.graphics.setColor(0.1, 1, 0.1, 1)
+    end
+    love.graphics.printf('HOW TO PLAY', WINDOW_HEIGHT/2-40, 400, WINDOW_HEIGHT, 'center')
 end
 
 
 function StartState:render()
     love.graphics.setFont(gFonts.large)
 
-    love.graphics.printf('Snake Game', 0, 10, 10, 'center')
+    love.graphics.printf('Snake Game', WINDOW_HEIGHT/2-60, 100, WINDOW_HEIGHT, 'center')
 
 
     love.graphics.setFont(gFonts.medium)
     love.graphics.setColor(1, 1, 1, 1)
 
-    if flag == 1 then
-        love.graphics.setColor(0.1, 1, 0.1, 1)
-    end
-    love.graphics.printf("START", 0, 50, 50, 'center')
+    renderStartLabel()
+    
+    love.graphics.setColor(1, 1, 1, 1)
+
+    renderHighScoresLabel()
 
     love.graphics.setColor(1, 1, 1, 1)
 
-    if flag == 2 then
-        love.graphics.setColor(0.1, 1, 0.1, 1)
-    end
-    love.graphics.printf("HIGH SCORES", 0, 70, 70, 'center')
+    renderSnakesLabel()
 
     love.graphics.setColor(1, 1, 1, 1)
 
-    if flag == 3 then
-        love.graphics.setColor(0.1, 1, 0.1, 1)
-    end
-    love.graphics.printf('SNAKES', 0, 70, 70, 'center')
+    renderHowToPlayLabel()
 end
