@@ -82,7 +82,7 @@ end
 function StartState:render()
     love.graphics.setFont(gFonts.large)
 
-    love.graphics.printf('Snake Game', WINDOW_HEIGHT/2-60, 100, WINDOW_HEIGHT, 'center')
+    love.graphics.printf('Snake Game', WINDOW_HEIGHT/2-40, 100, WINDOW_HEIGHT, 'center')
 
 
     love.graphics.setFont(gFonts.medium)

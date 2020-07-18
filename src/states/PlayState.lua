@@ -8,15 +8,29 @@ function PlayState:new()
 
     o.snake = Snake:new()
 
+    o.paused = false
+
     return o
 end
 
 
 function PlayState:update(dt)
-    self.snake:update(dt)
+    if not self.paused then
+        self.snake:update(dt)
+    end
+
+    if love.keyboard.wasPressed('p') then
+        if self.paused then
+            self.paused = false
+        else
+            self.paused = true
+        end
+    end
 end
 
 
 function PlayState:render()
-    self.snake:render()
+    if not self.paused then
+        self.snake:render()
+    end
 end
